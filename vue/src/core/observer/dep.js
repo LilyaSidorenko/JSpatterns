@@ -9,6 +9,9 @@ let uid = 0
  * A dep is an observable that can have multiple
  * directives subscribing to it.
  */
+
+// PATTERN OBSERVER
+
 export default class Dep {
   static target: ?Watcher;
   id: number;
@@ -41,6 +44,11 @@ export default class Dep {
     }
   }
 }
+
+
+// PATTERN OBSERVER END
+
+
 
 // the current target watcher being evaluated.
 // this is globally unique because there could be only one

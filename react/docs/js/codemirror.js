@@ -887,6 +887,11 @@ window.CodeMirror = (function() {
   // When an aspect of a line changes, a string is added to
   // lineView.changes. This updates the relevant part of the line's
   // DOM structure.
+
+
+
+// PATTERN FACTORY METHOD
+
   function updateLineForChanges(cm, lineView, lineN, dims) {
     for (var j = 0; j < lineView.changes.length; j++) {
       var type = lineView.changes[j];
@@ -897,6 +902,7 @@ window.CodeMirror = (function() {
     }
     lineView.changes = null;
   }
+// PATTERN FACTORY METHOD END
 
   // Lines with gutter elements, widgets or a background class need to
   // be wrapped, and have the extra elements added to the wrapper div

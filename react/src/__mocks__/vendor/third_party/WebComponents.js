@@ -53,6 +53,11 @@ window.WebComponents = window.WebComponents || {};
   scope.flags = flags;
 })(WebComponents);
 
+
+
+// PATTERN FACADE
+
+
 if (WebComponents.flags.shadow) {
   if (typeof WeakMap === "undefined") {
     (function() {
@@ -90,10 +95,27 @@ if (WebComponents.flags.shadow) {
     })();
   }
   window.ShadowDOMPolyfill = {};
+
+
+// PATTERN FACADE END
+
+
+
+// PATTERN "MODULE"
+
+
+
   (function(scope) {
     "use strict";
+
+
+// PATTERN FACADE USE
+
     var constructorTable = new WeakMap();
     var nativePrototypeTable = new WeakMap();
+
+// PATTERN FACADE USE END
+
     var wrappers = Object.create(null);
     function detectEval() {
       if (typeof chrome !== "undefined" && chrome.app && chrome.app.runtime) {
@@ -159,7 +181,14 @@ if (WebComponents.flags.shadow) {
     getOwnPropertyNames(window);
     function getWrapperConstructor(node) {
       var nativePrototype = node.__proto__ || Object.getPrototypeOf(node);
+
+
+// PATTERN FACADE USE2
+
       var wrapperConstructor = constructorTable.get(nativePrototype);
+
+// PATTERN FACADE USE2 END
+
       if (wrapperConstructor) return wrapperConstructor;
       var parentWrapperConstructor = getWrapperConstructor(nativePrototype);
       var GeneratedWrapper = createWrapperConstructor(parentWrapperConstructor);
@@ -354,6 +383,16 @@ if (WebComponents.flags.shadow) {
     scope.wrapIfNeeded = wrapIfNeeded;
     scope.wrappers = wrappers;
   })(window.ShadowDOMPolyfill);
+
+
+// PATTERN "MODULE" END
+
+
+
+
+// PATTERN "MODULE"
+
+
   (function(scope) {
     "use strict";
     function newSplice(index, removed, addedCount) {
@@ -701,7 +740,14 @@ if (WebComponents.flags.shadow) {
           }
         }
         if (!registration) {
+
+// PATTERN COMPOSITE USE
+
           registration = new Registration(this, target, newOptions);
+
+
+// PATTERN COMPOSITE USE end
+
           registrations.push(registration);
           this.nodes_.push(target);
         }
@@ -4864,6 +4910,11 @@ if (WebComponents.flags.shadow) {
     if (recordWithOldValue && recordRepresentsCurrentMutation(lastRecord)) return recordWithOldValue;
     return null;
   }
+
+
+// PATTERN COMPOSITE
+
+
   function Registration(observer, target, options) {
     this.observer = observer;
     this.target = target;
@@ -4989,6 +5040,13 @@ if (WebComponents.flags.shadow) {
       clearRecords();
     }
   };
+
+
+// PATTERN COMPOSITE END
+
+
+
+
   global.JsMutationObserver = JsMutationObserver;
   if (!global.MutationObserver) global.MutationObserver = JsMutationObserver;
 })(this);

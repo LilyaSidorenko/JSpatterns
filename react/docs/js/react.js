@@ -3009,7 +3009,14 @@ var emptyObject = _dereq_(27);
 /**
  * Base class helpers for the updating state of a component.
  */
-function ReactPureComponent(props, context, updater) {
+
+
+
+
+// PATTERN PROTOTYPE
+
+
+  function ReactPureComponent(props, context, updater) {
   // Duplicated from ReactComponent.
   this.props = props;
   this.context = context;
@@ -3028,6 +3035,13 @@ _assign(ReactPureComponent.prototype, ReactComponent.prototype);
 ReactPureComponent.prototype.isPureReactComponent = true;
 
 module.exports = ReactPureComponent;
+
+
+
+
+// PATTERN PROTOTYPE end
+
+
 },{"13":13,"27":27,"30":30,"6":6}],18:[function(_dereq_,module,exports){
 /**
  * Copyright 2013-present, Facebook, Inc.
