@@ -8,6 +8,19 @@
 // at http://marijnhaverbeke.nl/blog/#cm-internals .
 
 // CodeMirror is the only global var we claim
+
+
+
+
+
+// SINGLETONE PATTERN
+//
+// создаем глобальный обьект window.CodeMirror, присваеваем ей анонимную самовызывающуюся функцию
+// ниже проверка "if (!(this instanceof CodeMirror)) return new CodeMirror(place, options);"
+// возвращает единственный экземпляр обьекта
+
+
+
 window.CodeMirror = (function() {
   "use strict";
 
@@ -2015,6 +2028,9 @@ window.CodeMirror = (function() {
   // (and non-touching) ranges, sorted, and an integer that indicates
   // which one is the primary selection (the one that's scrolled into
   // view, that getCursor returns, etc).
+
+
+
   function Selection(ranges, primIndex) {
     this.ranges = ranges;
     this.primIndex = primIndex;
@@ -7376,6 +7392,8 @@ window.CodeMirror = (function() {
   };
 
   var nextDocId = 0;
+
+
   var Doc = CodeMirror.Doc = function(text, mode, firstLine, lineSep) {
     if (!(this instanceof Doc)) return new Doc(text, mode, firstLine, lineSep);
     if (firstLine == null) firstLine = 0;

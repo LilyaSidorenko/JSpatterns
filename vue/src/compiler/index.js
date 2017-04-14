@@ -30,6 +30,13 @@ function makeFunction (code, errors) {
   }
 }
 
+
+
+// PATTERN PROTOTYPE
+//pattern PROTOTYPE  создает объекты на основе шаблона существующего объекта посредством клонирования.
+//мы создаем обьект finalOptions который наследует свойста (modules, directives и тд) обьекта baseOptions через Object.create
+
+
 export function createCompiler (baseOptions: CompilerOptions) {
   const functionCompileCache: {
     [key: string]: CompiledFunctionResult;

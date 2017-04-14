@@ -55,7 +55,11 @@ window.WebComponents = window.WebComponents || {};
 
 
 
-// PATTERN FACADE
+// PATTERN COMPOSITE
+// позволяет создавать объекты со свойствами которые могут использоваться как одним елементом так и несколькими
+// WeakMap содержит методы (set, get, has). Далее мы присваеваем var constructorTable = new WeakMap();
+// таким образом получаем доступ к методам
+// ниже мы используем уже унаследованные методы от WeakMap (var wrapperConstructor = constructorTable.get(nativePrototype);)
 
 
 if (WebComponents.flags.shadow) {
@@ -97,24 +101,16 @@ if (WebComponents.flags.shadow) {
   window.ShadowDOMPolyfill = {};
 
 
-// PATTERN FACADE END
-
-
-
-// PATTERN "MODULE"
-
-
-
   (function(scope) {
     "use strict";
 
 
-// PATTERN FACADE USE
+// PATTERN COMPOSITE USE
 
     var constructorTable = new WeakMap();
     var nativePrototypeTable = new WeakMap();
 
-// PATTERN FACADE USE END
+// PATTERN COMPOSITE USE END
 
     var wrappers = Object.create(null);
     function detectEval() {
@@ -183,11 +179,11 @@ if (WebComponents.flags.shadow) {
       var nativePrototype = node.__proto__ || Object.getPrototypeOf(node);
 
 
-// PATTERN FACADE USE2
+// PATTERN COMPOSITE USE
 
       var wrapperConstructor = constructorTable.get(nativePrototype);
 
-// PATTERN FACADE USE2 END
+// PATTERN COMPOSITE USE END
 
       if (wrapperConstructor) return wrapperConstructor;
       var parentWrapperConstructor = getWrapperConstructor(nativePrototype);
@@ -717,6 +713,17 @@ if (WebComponents.flags.shadow) {
       }
     }
     var uidCounter = 0;
+
+// PATTERN OBSERVER
+// Pattern Observer создает модель, в которой объекты подписываются на событие и получают уведомление об изменении события
+// создаем компонент Observer, после этого добавляются методы observe, disconnect и тд.
+// Далее в комментарии // PATTERN OBSERVER USE мы создаем новый обьект this.mo = new MutationObserver(this.handler.bind(this));
+// таким образом получаем доступ к методу "observe" функции MutationObserver и можем ее использовать далее в контексте "this.mo"
+// this.mo.observe(root, {
+//     childList: true,
+//         subtree: true
+// });
+
     function MutationObserver(callback) {
       this.callback_ = callback;
       this.nodes_ = [];
@@ -740,14 +747,7 @@ if (WebComponents.flags.shadow) {
           }
         }
         if (!registration) {
-
-// PATTERN COMPOSITE USE
-
           registration = new Registration(this, target, newOptions);
-
-
-// PATTERN COMPOSITE USE end
-
           registrations.push(registration);
           this.nodes_.push(target);
         }
@@ -1546,6 +1546,12 @@ if (WebComponents.flags.shadow) {
     scope.wrappers.TouchEvent = TouchEvent;
     scope.wrappers.TouchList = TouchList;
   })(window.ShadowDOMPolyfill);
+
+// PATTERN MODULE
+    //создаем замыкание для и изоляции части логики от глобального контекста
+    // вконце функции выносим некоторые методы в общий scope: scope.wrappers.NodeList = NodeList;
+
+
   (function(scope) {
     "use strict";
     var unsafeUnwrap = scope.unsafeUnwrap;
@@ -4911,10 +4917,6 @@ if (WebComponents.flags.shadow) {
     return null;
   }
 
-
-// PATTERN COMPOSITE
-
-
   function Registration(observer, target, options) {
     this.observer = observer;
     this.target = target;
@@ -5042,7 +5044,6 @@ if (WebComponents.flags.shadow) {
   };
 
 
-// PATTERN COMPOSITE END
 
 
 
@@ -5345,9 +5346,13 @@ HTMLImports.addModule(function(scope) {
   scope.Loader = Loader;
 });
 
+
 HTMLImports.addModule(function(scope) {
+
   var Observer = function(addCallback) {
     this.addCallback = addCallback;
+
+//PATTERN OBSERVER USE
     this.mo = new MutationObserver(this.handler.bind(this));
   };
   Observer.prototype = {

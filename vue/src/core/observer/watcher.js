@@ -120,14 +120,7 @@ export default class Watcher {
       this.newDepIds.add(id)
       this.newDeps.push(dep)
       if (!this.depIds.has(id)) {
-
-
-// PATTERN OBSERVER USE
-
         dep.addSub(this)
-
-// PATTERN OBSERVER USE END
-
       }
     }
   }
