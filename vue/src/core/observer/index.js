@@ -31,6 +31,15 @@ export const observerState = {
  * object's property keys into getter/setters that
  * collect dependencies and dispatches updates.
  */
+
+// PATTERN OBSERVER
+
+  // Pattern Observer создает модель, в которой объекты подписываются на событие и получают уведомление об изменении события
+// создаем класс Observer
+// Далее мы создаем новый обьект ob = new Observer(value);
+// таким образом получаем доступ к методам класса "Observer" и можем из использовать далее в контексте "ob"
+
+
 export class Observer {
   value: any;
   dep: Dep;

@@ -63,6 +63,12 @@ export const hasSymbol =
 /**
  * Defer a task to execute it asynchronously.
  */
+
+// PATTERN MODULE
+//создаем замыкание для и изоляции части логики от глобального контекста
+// return function queueNextTick() - делает функцию доступной извне
+
+
 export const nextTick = (function () {
   const callbacks = []
   let pending = false
