@@ -84,6 +84,9 @@ function TreeComponent_0(): ViewDefinition {
       });
 }
 
+
+// PATTERN FACTORY
+
 export class AppModule implements Injector, NgModuleRef<any> {
   private sanitizer: DomSanitizerImpl;
   private componentFactory: ComponentFactory<TreeComponent>;

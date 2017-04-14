@@ -59,6 +59,14 @@ export class CustomDate {
   static now(): CustomDate { return new CustomDate(2014, 1, 28); }
 }
 
+
+
+// PATTERN COMPOSITE
+// позволяет создавать объекты со свойствами которые могут использоваться как одним елементом так и несколькими
+// RawEntity наследуется Company, Offering, Opportunity
+// таким образом получая доступ к методам и используя их со своими параметрами
+
+
 export class RawEntity {
   private _data: Map<any, any>;
 
